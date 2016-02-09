@@ -10,6 +10,10 @@
                 <td>{{ comment.id }}</td>
             </tr>
             <tr>
+                <th>Post id</th>
+                <td>{{ comment.post.getId() }}</td>
+            </tr>
+            <tr>
                 <th>Content</th>
                 <td>{{ comment.content }}</td>
             </tr>
@@ -26,10 +30,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('comment_index') }}">Back to the list</a>
+            <a href="{{ path('comment_index', { 'post_id': post_id }) }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('comment_edit', { 'id': comment.id }) }}">Edit</a>
+            <a href="{{ path('comment_edit', { 'post_id': post_id, 'id': comment.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

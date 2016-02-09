@@ -6,7 +6,6 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Content</th>
                 <th>Date</th>
                 <th>Author</th>
@@ -16,17 +15,17 @@
         <tbody>
         {% for comment in comments %}
             <tr>
-                <td><a href="{{ path('comment_show', { 'id': comment.id }) }}">{{ comment.id }}</a></td>
+                <td><a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">{{ comment.id }}</a></td>
                 <td>{{ comment.content }}</td>
                 <td>{% if comment.date %}{{ comment.date|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ comment.author }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('comment_show', { 'id': comment.id }) }}">show</a>
+                            <a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('comment_edit', { 'id': comment.id }) }}">edit</a>
+                            <a href="{{ path('comment_edit', { 'post_id': post_id, 'id': comment.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -35,9 +34,14 @@
         </tbody>
     </table>
 
+
+    <ul>
+
+    </ul>
+
     <ul>
         <li>
-            <a href="{{ path('comment_new') }}">Create a new entry</a>
+            <a href="{{ path('comment_new', { 'post_id': post_id }) }}">Create a new entry</a>
         </li>
     </ul>
 {% endblock %}

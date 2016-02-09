@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Post list</h1>
 
+
     <table>
         <thead>
             <tr>
@@ -29,7 +30,7 @@
                             <a href="{{ path('_edit', { 'id': post.id }) }}">Update</a>
                         </li>
                         <li>
-                            <a href="{{ path('comment_new', { 'post_id': post.id }) }}">Comments</a>
+                            <a href="{{ path('comment_index', { 'post_id': post.id }) }}">Comments</a>
                         </li>
                     </ul>
                 </td>

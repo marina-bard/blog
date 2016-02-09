@@ -22,14 +22,17 @@ class CommentController extends Controller
      * @Route("/", name="comment_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comments = $em->getRepository('AppBundle:Comment')->findAll();
+        $postId = $request->get('post_id');
+        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
+        $comments = $post->getComments();
 
         return $this->render('comment/index.html.twig', array(
             'comments' => $comments,
+            'post_id' => $postId,
         ));
     }
 
@@ -45,7 +48,8 @@ class CommentController extends Controller
         $form = $this->createForm('AppBundle\Form\CommentType', $comment);
         $form->handleRequest($request);
 
-        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($request->get('post_id'));
+        $postId = $request->get('post_id');
+        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -53,7 +57,7 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('comment_show', array('id' => $comment->getId()));
+            return $this->redirectToRoute('comment_index', array('post_id' => $postId));
         }
 
         return $this->render('comment/new.html.twig', array(
@@ -68,13 +72,15 @@ class CommentController extends Controller
      * @Route("/{id}", name="comment_show")
      * @Method("GET")
      */
-    public function showAction(Comment $comment)
+    public function showAction(Request $request, Comment $comment)
     {
         $deleteForm = $this->createDeleteForm($comment);
+        $postId = $request->get('post_id');
 
         return $this->render('comment/show.html.twig', array(
             'comment' => $comment,
             'delete_form' => $deleteForm->createView(),
+            'post_id' => $postId,
         ));
     }
 
@@ -90,12 +96,16 @@ class CommentController extends Controller
         $editForm = $this->createForm('AppBundle\Form\CommentType', $comment);
         $editForm->handleRequest($request);
 
+        $postId = $request->get('post_id');
+        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $comment->setPost($post);
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('comment_edit', array('id' => $comment->getId()));
+            return $this->redirectToRoute('comment_index', array('post_id' => $postId));
         }
 
         return $this->render('comment/edit.html.twig', array(
@@ -122,7 +132,7 @@ class CommentController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('comment_index');
+        return $this->redirectToRoute('comment_index', array('post_id' => $request->get('post_id')));
     }
 
     /**
