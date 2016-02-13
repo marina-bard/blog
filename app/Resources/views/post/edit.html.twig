@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Post edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <p class="blog-subtitle"> Post edit
+      <a href="{{ path('_index') }}">Back to the list</a>
+    </p>
 
-    <ul>
-        <li>
-            <a href="{{ path('_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="blog-post">
+      <p>
+        {{ form_start(edit_form) }}
+          {{ form_widget(edit_form) }}
+            <input class="btn btn-primary pull-right" type="submit" value="Edit">
+        {{ form_end(edit_form) }}
+        {{ form_start(delete_form) }}
+          <input class="btn btn-primary pull-right" type="submit" value="Delete">
+        {{ form_end(delete_form) }}
+      </p>
+    </div>
+
 {% endblock %}

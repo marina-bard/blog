@@ -1,46 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Comment list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Content</th>
-                <th>Date</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for comment in comments %}
-            <tr>
-                <td><a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">{{ comment.content }}</td>
-                <td>{% if comment.date %}{{ comment.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ comment.author }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('comment_edit', { 'post_id': post_id, 'id': comment.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <p class="blog-subtitle"> Comment list
+      <a href="{{ path('_index') }}">Back to the posts</a>
+    </p>
 
+    {% for comment in comments %}
 
-    {{ form_start(form) }}
+        <div class="blog-post">
+          <p class="blog-comment-content">{{ comment.content }}</p>
+          <p class="blog-comment-meta">{{ comment.date|date('Y-m-d H:i:s') }} created by {{ comment.author }}
+            <a href="{{ path('comment_edit', { 'post_id': post_id, 'id': comment.id }) }}">Update</a>
+            <a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">Show</a>
+          </p>
+        </div>
+
+    {% endfor %}
+
+    <div class="blog-post">
+      {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+          <input class="btn btn-primary pull-right" type="submit" value="Comment" />
+      {{ form_end(form) }}
+    </div>
 
-<!--    <ul>
-        <li>
-            <a href="{{ path('comment_new', { 'post_id': post_id }) }}">Create a new entry</a>
-        </li>
-    </ul> -->
 {% endblock %}

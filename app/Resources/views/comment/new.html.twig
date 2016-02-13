@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Add your comment</h1>
-
-    {{ form_start(form) }}
+    <div class="blog-post">
+      {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+          <input class="btn btn-primary pull-right" type="submit" value="Comment" />
+      {{ form_end(form) }}
+    </div>
 {% endblock %}

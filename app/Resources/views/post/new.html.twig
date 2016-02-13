@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Post creation</h1>
 
-    {{ form_start(form) }}
+    <p class="blog-subtitle"> Add your post
+      <a href="{{ path('_index') }}">Back to the list</a>
+    </p>
+
+    <div class="blog-post">
+      {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+          <input class="btn btn-primary pull-right"  type="submit" value="Post" /></p>
+      {{ form_end(form) }}
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}
