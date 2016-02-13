@@ -20,7 +20,7 @@ class CommentController extends Controller
      * Lists all Comment entities.
      *
      * @Route("/", name="comment_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
@@ -30,11 +30,21 @@ class CommentController extends Controller
         $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
         $comments = $post->getComments();
 
+        $comment = new Comment();
+        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->newAction($comment, $post);
+        }
+
         return $this->render('comment/index.html.twig', array(
             'comments' => $comments,
             'post_id' => $postId,
+            'form' => $form->createView(),
         ));
     }
+
 
     /**
      * Creates a new Comment entity.
@@ -42,28 +52,14 @@ class CommentController extends Controller
      * @Route("/new", name="comment_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction($comment,  $post)
     {
-        $comment = new Comment();
-        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $comment->setPost($post);
+        $em->persist($comment);
+        $em->flush();
 
-        $postId = $request->get('post_id');
-        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $comment->setPost($post);
-            $em->persist($comment);
-            $em->flush();
-
-            return $this->redirectToRoute('comment_index', array('post_id' => $postId));
-        }
-
-        return $this->render('comment/new.html.twig', array(
-            'comment' => $comment,
-            'form' => $form->createView(),
-        ));
+        return $this->redirectToRoute('comment_index', array('post_id' => $post->getId()));
     }
 
     /**

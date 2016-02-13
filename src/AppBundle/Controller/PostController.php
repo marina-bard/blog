@@ -43,11 +43,7 @@ class PostController extends Controller
     public function newAction(Request $request)
     {
         $post = new Post();
-        $comment = new Comment();
-        $comment->setAuthor("marina");
-        $post->addComment($comment);
-        var_dump($post->getComments());
-    //    comment->setAuthor = "marina";
+
         $form = $this->createForm('AppBundle\Form\PostType', $post);
         $form->handleRequest($request);
 

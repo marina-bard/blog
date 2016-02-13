@@ -33,13 +33,14 @@
     </table>
 
 
-    <ul>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
 
-    </ul>
-
-    <ul>
+<!--    <ul>
         <li>
             <a href="{{ path('comment_new', { 'post_id': post_id }) }}">Create a new entry</a>
         </li>
-    </ul>
+    </ul> -->
 {% endblock %}

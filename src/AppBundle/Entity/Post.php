@@ -22,7 +22,7 @@ class Post
 	protected $id;
 
 	/**
-		 * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+		 * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"persist"})
 		 */
 	protected $comments;
 
