@@ -9,14 +9,12 @@
                 <th>Content</th>
                 <th>Date</th>
                 <th>Author</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for comment in comments %}
             <tr>
-                <td><a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">{{ comment.id }}</a></td>
-                <td>{{ comment.content }}</td>
+                <td><a href="{{ path('comment_show', { 'post_id': post_id, 'id': comment.id }) }}">{{ comment.content }}</td>
                 <td>{% if comment.date %}{{ comment.date|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ comment.author }}</td>
                 <td>

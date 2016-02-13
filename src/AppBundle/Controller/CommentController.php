@@ -125,6 +125,7 @@ class CommentController extends Controller
     {
         $form = $this->createDeleteForm($comment);
         $form->handleRequest($request);
+        $postId = $comment->getPost()->getId();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -132,7 +133,7 @@ class CommentController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('comment_index', array('post_id' => $request->get('post_id')));
+        return $this->redirectToRoute('comment_index', array('post_id' => $postId));
     }
 
     /**
