@@ -32,6 +32,8 @@ class PostController extends Controller
         return $this->render('post/index.html.twig', array(
             'posts' => $posts,
         ));
+
+        return json_encode($posts);
     }
 
     /**
@@ -52,13 +54,16 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('_show', array('id' => $post->getId()));
+            //  return $this->redirectToRoute('_show', array('id' => $post->getId()));
+            return json_encode($post->getId());
         }
 
-        return $this->render('post/new.html.twig', array(
+      /*  return $this->render('post/new.html.twig', array(
             'post' => $post,
             'form' => $form->createView(),
-        ));
+        )); */
+
+        return json_encode($post);
     }
 
     /**
@@ -71,10 +76,12 @@ class PostController extends Controller
     {
         $deleteForm = $this->createDeleteForm($post);
 
-        return $this->render('post/show.html.twig', array(
+       /* return $this->render('post/show.html.twig', array(
             'post' => $post,
             'delete_form' => $deleteForm->createView(),
-        ));
+        ));*/
+
+        return json_encode($post);
     }
 
     /**
@@ -94,14 +101,16 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('_edit', array('id' => $post->getId()));
+            // return $this->redirectToRoute('_edit', array('id' => $post->getId()));
+            return json_encode($post->getId());
         }
 
-        return $this->render('post/edit.html.twig', array(
+      /*  return $this->render('post/edit.html.twig', array(
             'post' => $post,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ));*/
+        return json_encode($post);
     }
 
     /**
@@ -121,7 +130,7 @@ class PostController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('_index');
+        //return $this->redirectToRoute('_index');
     }
 
     /**
