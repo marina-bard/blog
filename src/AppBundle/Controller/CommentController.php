@@ -38,15 +38,10 @@ class CommentController extends Controller
             $this->newAction($comment, $post);
         }
 
-      /*  return $this->render('comment/index.html.twig', array(
+        return $this->render('comment/index.html.twig', array(
             'comments' => $comments,
             'post_id' => $postId,
             'form' => $form->createView(),
-        ));*/
-
-        return json_encode(array(
-            'comments' => $comments,
-            'post_id' => $postId,
         ));
     }
 
@@ -64,9 +59,7 @@ class CommentController extends Controller
         $em->persist($comment);
         $em->flush();
 
-       // return $this->redirectToRoute('comment_index', array('post_id' => $post->getId()));
-
-        return json_encode($post->getId());
+       return $this->redirectToRoute('comment_index', array('post_id' => $post->getId()));
     }
 
     /**
@@ -80,15 +73,10 @@ class CommentController extends Controller
         $deleteForm = $this->createDeleteForm($comment);
         $postId = $request->get('post_id');
 
-    /*    return $this->render('comment/show.html.twig', array(
+        return $this->render('comment/show.html.twig', array(
             'comment' => $comment,
             'delete_form' => $deleteForm->createView(),
             'post_id' => $postId,
-        ));*/
-
-        return json_encode(array(
-            'comment' => $comment,
-            'post_id' => $postId
         ));
     }
 
@@ -116,13 +104,11 @@ class CommentController extends Controller
             return $this->redirectToRoute('comment_index', array('post_id' => $postId));
         }
 
-       /* return $this->render('comment/edit.html.twig', array(
+        return $this->render('comment/edit.html.twig', array(
             'comment' => $comment,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));*/
-
-        return json_encode($comment);
+        ));
     }
 
     /**
@@ -143,8 +129,7 @@ class CommentController extends Controller
             $em->flush();
         }
 
-      //  return $this->redirectToRoute('comment_index', array('post_id' => $postId));
-        return json_encode($postId);
+        return $this->redirectToRoute('comment_index', array('post_id' => $postId));
     }
 
     /**

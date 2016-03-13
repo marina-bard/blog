@@ -39,7 +39,7 @@ class Post
 	/**
      * @ORM\Column(type="datetime")
      */
-	protected $data;
+	protected $date;
 
 
 	public function __construct()
@@ -103,27 +103,27 @@ class Post
     }
 
     /**
-     * Set data
+     * Set date
      *
-     * @param \DateTime $data
+     * @param \DateTime $date
      * @return Post
 		 * @ORM\PrePersist
      */
-    public function setData()
+    public function setDate()
     {
-        $this->data = new \DateTime('now');
+        $this->date = new \DateTime('now');
 
         return $this;
     }
 
     /**
-     * Get data
+     * Get date
      *
      * @return \DateTime
      */
-    public function getData()
+    public function getDate()
     {
-        return $this->data;
+        return $this->date;
     }
 
     /**

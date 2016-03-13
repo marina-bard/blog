@@ -13,7 +13,7 @@
 
         <div class="blog-post">
           <h2 class="blog-post-title"><a href="{{ path('_show', { 'id': post.id }) }}">{{ post.title }}</a></h2>
-          <p class="blog-post-meta">{{ post.data|date('Y-m-d H:i:s') }}
+          <p class="blog-post-meta">{{ post.date|date('Y-m-d H:i:s') }}
             <a href="{{ path('_edit', { 'id': post.id }) }}">Update</a>
             <a href="{{ path('comment_index', { 'post_id': post.id }) }}">Comments</a>
           </p>
